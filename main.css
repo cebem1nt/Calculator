@@ -1,0 +1,33 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: rgb(34, 31, 31);
+    color: azure;
+
+}
+.calculator{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.container{
+    margin-top: 20vh;
+}
+.output{
+    border: solid 1px rgb(42, 134, 96);
+    font-weight: 100;
+    width: 314px;
+    margin-top: 10px;
+}
+.buttons{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin-left: 15px;
+    user-select: none;
+}
+.second-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
