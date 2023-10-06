@@ -11,20 +11,46 @@
 </head>
 <body>
     <div class="container">
-            <div class="calculator">
-                <input type="text">
+    <div class="calculator">
+        <input type="text" id="input">
+            <div class="output">0</div>
+                <div class="buttons">
 
-                 <div class="buttons">
-                    <button id="log" onclick="ln()" >ln</button> <button id="root" onclick="root()">√</button> <button id="degree">^</button>
-                    <button id="plus">+</button> <button id="minus">-</button> <button id="divide">÷</button>
-                    <button id="multiply">×</button> <button id="clear">AC</button> <button id="equal" onclick="equal()">=</button>
-                 </div>
-                    
-        </div>
+                 <div id="log" onclick="ln()" >ln</div> <div id="lg" onclick="lg()">lg</div> <div id="sin" onclick="sin()">sin</div> <div id="cos" onclick="cos()">cos</div>
+
+                 <div id="tan" onclick="tan()">tan</div> <div id="brct">(</div> <div id="rct">)</div> <div id="dot">.</div>
+
+                 <div id="degree">^</div> <div id="root" onclick="root()">√</div> <div id="pi" onclick="numPi()">п</div> <div id="e" onclick="numE()">e</div>
+
+                 <div id="divide">÷</div> <div id="multiply">×</div> <div id="plus">+</div> <div id="minus">-</div>
+
+                 <div id="percent">%</div><div id="factorial" onclick="fact()">!</div> <div id="clear">AC</div> <div id="equal" onclick="equal()">=</div>
+
+            </div>
     </div>
 
-    <div class="second-container">
-        <div class="output">0</div>
+        <div class="more" onclick="show()">more</div>
+
+        <div class="equations">
+            <div class="descreminante">  
+                <div style="text-align: center; border: none;">Discriminant</div>
+                    <input type="text" id="d" placeholder="a = ?  b = ?  c = ?">
+                        <button class="d-equal">=</button>
+
+                    <div class="d-output" style="text-align: center;">
+                        0
+                    </div>
+            </div>
+                <div class="parabolas">
+                <div style="text-align: center; border: none;">Parabola</div>
+                    <input type="text" id="p" placeholder="a = ?  b = ?  c = ?">
+                        <button class="p-equal">=</button>
+
+                        <div class="p-output" style="text-align: center;">
+                            0
+                        </div>
+                </div>
+        </div>
     </div>
 
     <script src="main.js"></script>
