@@ -1,44 +1,32 @@
 body {
-    font-family: 'Raleway', sans-serif;
-    background-color: rgb(34, 31, 31);
-    color: azure;
+    font-family: 'Calibri';
+    font-size: 110%;
+    background-color: rgb(15, 15, 15);
+    color: white;
+    font-weight: 600;
+    user-select: none;
 
 }
 .calculator{
-    border: solid 1px rgb(42, 134, 96);
+    border:solid 1px #66FF99 ;
     border-radius: 7px;
     padding: 10px;
     width: 260px;
     height: 285px;
-
 }
 #input{
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     box-sizing: border-box;
-}
-.output{
-    border: solid 1px rgb(42, 134, 96);
-    font-weight: 100;
-    width: auto;
-    margin-bottom: 15px;
 }
 .buttons{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
     grid-gap: 18px;
-    user-select: none;
     text-align: center; 
-    padding: 6px;
 }
-
-.buttons div {
-    transform: scale(1.2); 
-    border: solid 1px rgb(42, 134, 96);
-}
-
 .equations{
     display: none;
     flex-direction: column;
@@ -46,9 +34,8 @@ body {
     height: 307px;
     align-items: center;
     justify-content: center;
-    border: solid 1px rgb(42, 134, 96);
+    border: solid 1px #66FF99;
     border-radius: 7px;
-    margin-left: 20px;
 }
 
 .descreminante input{
@@ -57,8 +44,8 @@ body {
 
 .descreminante div{
     margin-bottom: 15px;
-    border: solid 1px rgb(42, 134, 96);
-    height: 16px;
+    border: solid 1px white;
+    height: 22px;
 }
 
 .parabolas input{
@@ -67,8 +54,8 @@ body {
 
 .parabolas div{
     margin-bottom: 15px;
-    border: solid 1px rgb(42, 134, 96);
-    height: 16px;
+    border: solid 1px white;
+    height: 22px;
 }
 
 .container {
@@ -79,14 +66,29 @@ body {
 }
 
 .more{
-    border: solid 1px rgb(42, 134, 96);
-    flex-direction: column;
-    height: 80px;
-    width: 20px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 20px;
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-    user-select: none;
+    margin: auto 20px auto 20px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 500px){
+    .calculator{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .equations{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .more{
+        transform: rotate(90deg);
+    }
+    .container{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }

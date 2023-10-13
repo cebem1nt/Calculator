@@ -1,5 +1,4 @@
-let input = document.querySelector('input'),
-    output = document.querySelector('.output');
+let input = document.querySelector('input');
 const buttons = document.querySelector('.buttons');
 
 input.addEventListener('keydown', (event) => {
@@ -7,8 +6,6 @@ input.addEventListener('keydown', (event) => {
  
   if (!numericKeyCodes.includes(event.keyCode)) {
    event.preventDefault();
- } else {
-  output.innerHTML = 0;
  }
 });
 
@@ -19,7 +16,6 @@ buttons.addEventListener('click', (event) => {
 
   if (par == 'AC'){
     input.value = '';
-    output.innerHTML = '0';
     power = '';
   }
 
@@ -52,20 +48,18 @@ buttons.addEventListener('click', (event) => {
 function ln() {
    let res = Math.log(eval(input.value));
      if(isNaN(res)) {
-        output.innerHTML = 'Error';
+        input.value = 'Error';
        } else {
-        output.innerHTML = res;
-         input.value = '';
+        input.value = res;
        }
 }
 
 function root() {
    let res = Math.sqrt(eval(input.value));
     if (isNaN(res)) {
-     output.innerHTML = 'Error';
+     input.value = 'Error';
     } else {
-       output.innerHTML = res;
-         input.value = '';
+       input.value = res;
       }
 }
 
@@ -77,13 +71,11 @@ function equal(){
          let td = exp.split('^');
           let num = eval(power);
            let pow = +td[1];
-            output.innerHTML = Math.pow(num, pow);
+            input.value = Math.pow(num, pow);
              power = '';
-              input.value = '';
 
       } else if (exp) {
-        output.innerHTML = eval(exp);
-         input.value = '';
+        input.value = eval(exp);
        }
 }
 
@@ -92,7 +84,7 @@ function factorial(n) {
 }
 
 function fact() {
-  output.innerHTML = factorial(+eval(input.value));
+  input.value = factorial(+eval(input.value));
 }
 
 function numPi(){
@@ -105,40 +97,36 @@ function numE(){
 function lg() {
   let res = Math.log10(eval(input.value));
     if(isNaN(res)) {
-       output.innerHTML = 'Error';
+       input.value = 'Error';
       } else {
-       output.innerHTML = res;
-        input.value = '';
+       input.value = res;
       }
 }
 
 function sin() {
   let res = Math.sin(eval(input.value));
     if(isNaN(res)) {
-       output.innerHTML = 'Error';
+       input.value = 'Error';
       } else {
-       output.innerHTML = res;
-        input.value = '';
+       input.value = res;
       }
 }
 
 function cos() {
   let res = Math.cos(eval(input.value));
     if(isNaN(res)) {
-       output.innerHTML = 'Error';
+       input.value = 'Error';
       } else {
-       output.innerHTML = res;
-        input.value = '';
+       input.value = res;
       }
 }
 
 function tan() {
   let res = Math.tan(eval(input.value));
     if(isNaN(res)) {
-       output.innerHTML = 'Error';
+       input.value = 'Error';
       } else {
-       output.innerHTML = res;
-        input.value = '';
+       input.value = res;
       }
 }
 
@@ -150,9 +138,11 @@ let showed = false;
 
 function show(){
   if(showed){
+    more.innerHTML = '>';
     equations.style.display = "none";
     showed = false;
   } else {
+    more.innerHTML = '<';
     equations.style.display = "flex";
     showed = true;
   }
