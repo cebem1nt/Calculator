@@ -5,37 +5,123 @@ body {
     color: white;
     font-weight: 600;
     user-select: none;
+}
 
+::-webkit-scrollbar{
+    height: 0.3vh;
+    background: #66FF99;
+    border-radius: 10px;
 }
-.calculator{
-    border:solid 1px #66FF99 ;
-    border-radius: 7px;
-    padding: 10px;
-    width: 260px;
-    height: 285px;
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+sub{
+    position: relative;
+    bottom: 0.8vh; 
+    font-size: 70%;
+}
+.calculator, .equations{
+    background-color: rgb(27, 27, 27);
+    border-radius: 1.5vh;
+    padding: 2vh;
+    width: 35vh;
+    height: 58vh;
+}
+
+.intr{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.prc-out{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(25, 25, 25);
+    padding: 1.5vh;
+    margin-bottom: 1.5vh;
+    border-radius: 1.5vh;
+}
+
 #input{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 30px;
+    font-family: 'Calibri';
+    font-size: large;
+    font-weight: 600;
+    background-color: rgb(24, 24, 24);
+    caret-color: #66FF99;
+    color: #0fe4a4;
+    outline: none;
+    border: none;
+    border-radius: 1.5vh;
+    width: auto;
+    padding: 1.5vh;
+    margin-bottom: 1.5vh;
     box-sizing: border-box;
 }
-.buttons{
+
+#process{
+    color: #16644c;
+    height: 3vh;
+}
+
+#output {
+    color: #66FF99;
+    overflow-x: scroll;
+    height: 4vh;
+}
+
+.buttons {
+    background-color: rgb(24, 24, 24);
+    border-radius: 1vh;
+    padding: 2vh;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-gap: 18px;
+    grid-template-columns: repeat(4, 6vh);
+    grid-template-rows: repeat(5, 6vh);
+    grid-gap: 1.9vh;
+    grid-template-areas: 
+    "_1 _2 _3 _4"
+    "_5 _7 _6 _10"
+    "_8 _13 _12 _11"
+    "_9 _16 _17 _19"
+    "_14 _15 _18 _19";  
     text-align: center; 
 }
+
+.button, .upper, .right{
+    border-radius: 1.2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6vh;
+    height: 6vh;
+}
+
+.right{
+    background-color: #21c292;
+}
+
+.button {
+    background-color: #0de856;
+}
+
+.upper{
+    background-color: #0fe4a4;
+}
+
 .equations{
     display: none;
     flex-direction: column;
-    width: 280px;
-    height: 307px;
     align-items: center;
     justify-content: center;
-    border: solid 1px #66FF99;
-    border-radius: 7px;
 }
 
 .descreminante input{
@@ -59,7 +145,6 @@ body {
 }
 
 .container {
-    height: 309px;
     display: inline-block;
     display: flex;
     flex-direction: row;
@@ -91,4 +176,64 @@ body {
         margin-left: auto;
         margin-right: auto;
     }
+}
+
+#_1 {
+    grid-area: _1;
+}
+#_2 {
+    grid-area: _2;
+}
+#_3 {
+    grid-area: _3;
+}
+#_4 {
+    grid-area: _4;
+}
+#_5 {
+    grid-area: _5;
+}
+#_6 {
+    grid-area: _6;
+}
+#_7 {
+    grid-area: _7;
+}
+#_8 {
+    grid-area: _8;
+}
+#_9 {
+    grid-area: _9;
+}
+#_10 {
+    grid-area: _10;
+}
+#_11 {
+    grid-area: _11;
+}
+#_12 {
+    grid-area: _12;
+}
+#_13 {
+    grid-area: _13;
+}
+#_14 {
+    grid-area: _14;
+}
+#_15 {
+    grid-area: _15;
+}
+#_16 {
+    grid-area: _16;
+}
+#_17 {
+    grid-area: _17;
+}
+#_18 {
+    grid-area: _18;
+}
+#_19 {
+    grid-area: _19;
+    width: auto;
+    height: auto;
 }

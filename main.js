@@ -1,137 +1,3 @@
-let input = document.querySelector('input');
-const buttons = document.querySelector('.buttons');
-
-input.addEventListener('keydown', (event) => {
-    const numericKeyCodes = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 8,];
- 
-  if (!numericKeyCodes.includes(event.keyCode)) {
-   event.preventDefault();
- }
-});
-
-let power = '';
-
-buttons.addEventListener('click', (event) => {
-  let par = event.target.innerText;
-
-  if (par == 'AC'){
-    input.value = '';
-    power = '';
-  }
-
-    if (par === '-') {
-      input.value += '-'
-    } else  if (par === '+') {
-      input.value += '+'
-    } else  if (par === '÷') {
-      input.value += '/'
-    } else  if (par === '×') {
-      input.value += '*'
-    } else if (par === '('){
-      input.value += '('
-    } else if (par === ')'){
-      input.value += ')'
-    } else if (par === '.'){
-      input.value += '.'
-    } else if (par === '%'){
-      input.value += '%'
-    }
-
-  if (par == '^'){
-    power = input.value;
-     input.value += '^';
-  } 
-
-});
-
-
-function ln() {
-   let res = Math.log(eval(input.value));
-     if(isNaN(res)) {
-        input.value = 'Error';
-       } else {
-        input.value = res;
-       }
-}
-
-function root() {
-   let res = Math.sqrt(eval(input.value));
-    if (isNaN(res)) {
-     input.value = 'Error';
-    } else {
-       input.value = res;
-      }
-}
-
-function equal(){
-
-    let exp = input.value;
-       if(exp.includes('^')) {
-
-         let td = exp.split('^');
-          let num = eval(power);
-           let pow = +td[1];
-            input.value = Math.pow(num, pow);
-             power = '';
-
-      } else if (exp) {
-        input.value = eval(exp);
-       }
-}
-
-function factorial(n) {
-  return (n != 1) ? n * factorial(n - 1) : 1;
-}
-
-function fact() {
-  input.value = factorial(+eval(input.value));
-}
-
-function numPi(){
-  input.value += Math.PI.toFixed(8)
-} 
-function numE(){
-  input.value += Math.E.toFixed(8)
-}
-
-function lg() {
-  let res = Math.log10(eval(input.value));
-    if(isNaN(res)) {
-       input.value = 'Error';
-      } else {
-       input.value = res;
-      }
-}
-
-function sin() {
-  let res = Math.sin(eval(input.value));
-    if(isNaN(res)) {
-       input.value = 'Error';
-      } else {
-       input.value = res;
-      }
-}
-
-function cos() {
-  let res = Math.cos(eval(input.value));
-    if(isNaN(res)) {
-       input.value = 'Error';
-      } else {
-       input.value = res;
-      }
-}
-
-function tan() {
-  let res = Math.tan(eval(input.value));
-    if(isNaN(res)) {
-       input.value = 'Error';
-      } else {
-       input.value = res;
-      }
-}
-
-// 
-
 const more = document.querySelector('.more'),
       equations = document.querySelector('.equations');
 let showed = false;
@@ -139,7 +5,7 @@ let showed = false;
 function show(){
   if(showed){
     more.innerHTML = '>';
-    equations.style.display = "none";
+    equations.style.display = "none"; 
     showed = false;
   } else {
     more.innerHTML = '<';
@@ -200,4 +66,183 @@ pEqual.addEventListener('click', function(){
     let Yv = a*(Math.pow(Xv, 2)) + b*Xv + c;
      console.log(Yv)
     pOutput.innerHTML = `V = (${Xv} ; ${Yv})`;
+})
+
+class Calculator {
+    constructor (input, output, process) {
+      this.inp = input
+      this.out = output
+      this.process = process
+      this.prevNum = null // n1 + n2; tracks n1
+      this.methodCall = null // traks operation: * , / , + , - , etc
+      this.ans = 0
+    }
+
+    addToCall(method){
+      if (this.inp.value.length == 0){
+        return
+      } 
+      
+      if (this.methodCall == null && this.methods[method].length == 2){
+        this.prevNum = Number(this.inp.value)
+        this.methodCall = method
+        this.clearInput()
+        return
+      }
+
+      else if (this.methodCall != null && this.methods[method].length == 2){
+        this.calculateAndKeep()
+        this.methodCall = method
+        return
+      }
+
+      else if (this.methodCall == null && this.methods[method].length == 1){
+        this.calculateOneNum(method)
+        return
+      }
+
+      else if (this.methodCall != null && this.methods[method].length == 1){
+        this.calculateInInput(method)
+        return
+      }
+    }
+
+    calculateOneNum(method) { 
+      // calculates any operation with only one number outside
+      // of long operations for example !4 ; sin(21); etc.
+      const y = this.methods[method](Number(this.inp.value))
+      this.setResult(y)
+      this.clearInput()
+      return
+    }
+
+    calculateAndKeep() {
+      // calculates any operation with two numbers and
+      // sets the result as a previous number. used in case of:
+      // triple operations : 1 + 2 - n ; will calculaate 1 + 2 firstly
+      // and then will calculate as 3 - n
+      const res = this.methods[this.methodCall](this.prevNum, Number(this.inp.value))
+      this.setResult(res)
+      this.prevNum = res
+      this.clearInput()
+      this.clearOutput()
+      this.setProcess()
+      return
+    }
+
+    calculateInInput(method) {
+      // calculates any operation with one number inside of 
+      // long operations and sets result in input :
+      // 3 + !4 ; will calculate !4 firstly
+      const y = this.methods[method](Number(this.inp.value))
+      this.setInput(y)
+      return
+    }
+
+    calculate() {
+      // calculates any operation with two numbers
+      // previous number and current input number
+      if (this.methodCall === null || this.prevNum == null){
+        this.setResult(this.inp.value)
+        this.clearAll()
+        return
+      }
+
+      const res = this.methods[this.methodCall](this.prevNum, Number(this.inp.value))
+      this.setResult(res)
+      this.ans = typeof res === 'number' ? res : 0
+      this.clearAll()
+      return
+    }
+
+    setProcess() {
+      if (typeof this.prevNum == 'number'){
+
+        if (this.methodCall && this.methods[this.methodCall].length == 2) {
+          this.process.innerHTML = `${this.prevNum} ${this.methodsSymb[this.methodCall]} ${this.inp.value}`
+        } 
+
+      } else {
+        this.process.innerHTML = this.inp.value
+      }
+    }
+
+    setResult(x) {
+      this.out.innerHTML = x 
+      this.ans = typeof x === 'number' ? x : 0
+    }
+
+    setInput(x) {
+      this.inp.value = Number(x)
+    }
+
+    methods = {
+      add : (a, b) => {return a + b},
+      sub : (a, b) => {return a - b},
+      div : (a, b) => {return a / b},
+      mul : (a, b) => {return a * b},
+      pow : (a, b) => {return a ** b},
+      mod : (a,b) => {return a % b},
+      sin : (a) => { return Math.sin(a) },
+      cos : (a) => { return Math.cos(a) },
+      ln : (a) => { return Math.log(a) },
+      lg : (a) => { return Math.log10(a) },
+      sqrt: (a) => {return Math.sqrt(a) },
+      fact : (a) => { if (a> 170) { return 'Keep it real' }
+            a = Math.floor(a)
+            if (a === 0) {
+                return 1;
+              } return a * this.methods['fact'](a - 1)
+      },
+    }
+
+    methodsSymb = {
+      add : '+',
+      sub : '-',
+      div : '/',
+      mul : '*',
+      pow : '^',
+      mod : '%'
+    }
+
+    addPI(){ this.inp.value =  String( Math.PI.toFixed(5))}
+
+    addE(){ this.inp.value =  String( Math.E.toFixed(5))}
+
+    negPos(){ this.inp.value = -this.inp.value}
+
+    getAns(){ this.inp.value = this.ans; this.clearOutput()}
+
+    addDot(){ this.inp.value += '.0'}
+
+    ac(){
+      this.clearAll()
+      this.out.innerText = '0'
+    }
+
+    clearAll(){
+      this.inp.value = ''
+      this.methodCall = null
+      this.prevNum = null
+      this.process.innerHTML = ''
+    }
+
+    clearInput(){
+      this.inp.value = ''
+    }
+
+    clearProcess(){
+      this.process.innerHTML = ''
+    }
+
+    clearOutput(){
+      this.out.innerHTML = ''
+    }
+}
+
+const calculator = new Calculator (document.querySelector('#input'), document.querySelector('#output'), document.querySelector('#process'))
+
+const buttons = document.querySelector('.buttons')
+buttons.addEventListener('click', ()=>{
+  calculator.setProcess()
 })

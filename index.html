@@ -12,20 +12,39 @@
 <body>
     <div class="container">
     <div class="calculator">
-        <input type="text" id="input">
+        <div class="intr">
+            <input type="number" id="input" oninput="calculator.setProcess(); calculator.clearOutput()">
+            <div class="prc-out">
+                <small id="process"></small><output id="output"></output>
+            </div>
+        </div>
                 <div class="buttons">
 
-                 <div id="log" onclick="ln()" >ln</div> <div id="lg" onclick="lg()">lg</div> <div id="sin" onclick="sin()">sin</div> <div id="cos" onclick="cos()">cos</div>
+                    <div class="upper" id="_1" onclick="calculator.addToCall('ln')">ln</div> 
+                    <div class="upper" id="_2" onclick="calculator.addToCall('lg')">lg</div> 
+                    <div class="upper" id="_3" onclick="calculator.addToCall('sin')">sin</div> 
+                    <div class="upper" id="_4" onclick="calculator.addToCall('cos')">cos</div>
 
-                 <div id="tan" onclick="tan()">tan</div> <div id="brct">(</div> <div id="rct">)</div> <div id="dot">.</div>
+                    <div class="button" id="_5" onclick="calculator.negPos()">+/-</div> 
+                    <div class="button" id="_6" onclick="calculator.getAns()">ans</div> 
+                    <div class="button" id="_7"  onclick="calculator.addDot()">.</div>
+                    <div class="button" id="_8" onclick="calculator.addToCall('pow')">x<sub>y</sub></div> 
+                    
+                    <div class="button" id="_9" onclick="calculator.addToCall('sqrt')">√</div> 
+                    <div class="right"  id="_10" onclick="calculator.addPI()">п</div> 
+                    <div class="right"  id="_11" onclick="calculator.addE()">e</div>
+                    <div class="button" id="_12" onclick="calculator.addToCall('div')">÷</div> 
+                    
+                    <div class="button" id="_13" onclick="calculator.addToCall('mul')">×</div> 
+                    <div class="button" id="_14"  onclick="calculator.addToCall('add')">+</div> 
+                    <div class="button" id="_15" onclick="calculator.addToCall('sub')">-</div>
+                    <div class="button" id="_16" onclick="calculator.addToCall('mod')">%</div>
+                    
+                    <div class="button" id="_17" onclick="calculator.addToCall('fact')">!</div> 
+                    <div class="button" id="_18" onclick="calculator.ac()">C</div> 
+                    <div class="right" id="_19" onclick="calculator.calculate()">=</div>
 
-                 <div id="degree">^</div> <div id="root" onclick="root()">√</div> <div id="pi" onclick="numPi()">п</div> <div id="e" onclick="numE()">e</div>
-
-                 <div id="divide">÷</div> <div id="multiply">×</div> <div id="plus">+</div> <div id="minus">-</div>
-
-                 <div id="percent">%</div><div id="factorial" onclick="fact()">!</div> <div id="clear">AC</div> <div id="equal" onclick="equal()">=</div>
-
-            </div>
+                </div>
     </div>
 
         <div class="more" onclick="show()">></div>
