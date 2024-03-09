@@ -1,73 +1,3 @@
-const more = document.querySelector('.more'),
-      equations = document.querySelector('.equations');
-let showed = false;
-
-function show(){
-  if(showed){
-    more.innerHTML = '>';
-    equations.style.display = "none"; 
-    showed = false;
-  } else {
-    more.innerHTML = '<';
-    equations.style.display = "flex";
-    showed = true;
-  }
-}
-
-const dInput = document.querySelector('#d'),
-      dEqual = document.querySelector('.d-equal'),
-      dOutput = document.querySelector('.d-output');
-
-const pInput = document.querySelector('#p'),
-      pEqual = document.querySelector('.p-equal'),
-      pOutput = document.querySelector('.p-output');
-
-dInput.addEventListener('mouseover', function(){
-  dInput.placeholder = 'use space to separate'
-})
-
-dInput.addEventListener('mouseout', function(){
-  dInput.placeholder = 'a = ?  b = ?  c = ?'
-})
-
-pInput.addEventListener('mouseover', function(){
-  pInput.placeholder = 'use space to separate'
-})
-
-pInput.addEventListener('mouseout', function(){
-  pInput.placeholder = 'a = ?  b = ?  c = ?'
-})
-
-dEqual.addEventListener('click', function(){
-  let abc = dInput.value.split(" ");
-   let a = abc[0], b = abc[1], c = abc[2];
-   dInput.value = "";
-    let D = (Math.pow(b, 2)) - 4*a*c;
-     console.log(`D = ${D}`);
-      if (D === 0){
-        let x = -b + (Math.sqrt(D)) / 2*a;
-         dOutput.innerHTML = x;
-      } else if (D > 0){
-        let x1 = -b + (Math.sqrt(D)) / 2*a;
-         let x2 = -b - (Math.sqrt(D)) / 2*a;
-        console.log(x1,x2);
-        dOutput.innerText = `X1 = ${x1} X2 = ${x2}`;
-      } else {
-        dOutput.innerHTML = "No roots";
-      }
-});
-
-pEqual.addEventListener('click', function(){
-  let abc = pInput.value.split(" ");
-   let a = abc[0], b = abc[1], c = abc[2];
-    pInput.value = "";
-   let Xv = -b / 2*a;
-   console.log(Xv)
-    let Yv = a*(Math.pow(Xv, 2)) + b*Xv + c;
-     console.log(Yv)
-    pOutput.innerHTML = `V = (${Xv} ; ${Yv})`;
-})
-
 class Calculator {
     constructor (input, output, process) {
       this.inp = input
@@ -240,9 +170,127 @@ class Calculator {
     }
 }
 
+class Formulas {
+  constructor (solve, select, input, output, approx) {
+    this.solve = solve
+    this.select = select
+    this.inp = input
+    this.out = output
+    this.approx = approx
+  }
+
+  calculate () {
+    if (this.inp.value.length === 5) {
+      switch (this.select.value) {
+        case 'disc':
+          this.discriminant()
+          break;
+      
+        case 'qe':
+          this.quadraticEquation()
+          break;
+      }
+    }
+  }
+
+  discriminant () {
+    let abc = this.inp.value.split(" ")
+
+    if (abc.length === 3) {
+      const a = Number(abc[0]), b = Number(abc[1]), c = Number(abc[2])
+      const D = (Math.pow(b, 2)) - 4*(a*c)
+
+      this.setResult(D)
+      this.clearInput()
+      console.log('D = ' + D);
+      return D
+    } else {
+      this.setResult('Error')
+    }
+  }
+
+  quadraticEquation () {
+    let abc = this.inp.value.split(" ")
+    const a = Number(abc[0]), b = Number(abc[1])
+    const D = this.discriminant()
+
+
+    if (D === 0){
+      const x = -b + (Math.sqrt(D)) / (2*a)
+      this.setResult(x)
+    } else if (D > 0){
+      const x1 = (-(b) + (Math.sqrt(D))) / (2*a)
+      const x2 = (-(b) - (Math.sqrt(D))) / (2*a)
+      console.log(x1,x2)
+      if (this.isLongDecimal(x1) || this.isLongDecimal(x2)) {
+        this.setResult(this.truncateNum(x1), this.truncateNum(x2), true)
+        return
+      }
+      this.setResult(x1, x2)
+    } else {
+      this.setResult(`No roots, D < 0 (${D})`)
+    }
+  }
+
+  setResult(res1, res2='', approx=false) {
+    if (res2.length !== 0) {
+      this.out.innerHTML = String(res1) + ' ; ' + String(res2)
+    } else {
+      this.out.innerHTML = res1
+    }
+
+    if (approx) {
+      this.approx.style.display = 'block'
+    } else {
+      this.approx.style.display = 'none'
+    }
+  }
+
+  isLongDecimal(num) {
+    const strs = String(num).split('.')
+    if ( strs.length == 2 && strs[1].length > 4) {
+      return true
+    } 
+    return false
+  }
+
+  truncateNum(num){
+    let strs = String(num).split('.')
+    if (strs.length === 2) {
+      strs[1] = strs[1].substring(0, 4)
+      return strs.join('.')
+    }
+    return num
+  }
+
+  clearInput() {
+    this.inp.value = ''
+  }
+
+}
+
 const calculator = new Calculator (document.querySelector('#input'), document.querySelector('#output'), document.querySelector('#process'))
+const formulaCalculator = new Formulas (document.querySelector('#solve') ,document.querySelector('#formula-select'), document.querySelector('#formula-inp'), document.querySelector('#formula-out'), document.querySelector('.approx'))
 
 const buttons = document.querySelector('.buttons')
 buttons.addEventListener('click', ()=>{
   calculator.setProcess()
 })
+
+const more = document.querySelector('.more'),
+      formulas = document.querySelector('.formulas')
+
+let showed = false;
+
+function show(){
+  if(showed){
+    more.innerHTML = '>';
+    formulas.style.display = "none"; 
+    showed = false;
+  } else {
+    more.innerHTML = '<';
+    formulas.style.display = "flex";
+    showed = true;
+  }
+}
+

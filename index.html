@@ -13,7 +13,8 @@
     <div class="container">
     <div class="calculator">
         <div class="intr">
-            <input type="number" id="input" oninput="calculator.setProcess(); calculator.clearOutput()">
+            <input type="number" id="input" maxlength="25"
+            oninput="calculator.setProcess(); calculator.clearOutput()">
             <div class="prc-out">
                 <small id="process"></small><output id="output"></output>
             </div>
@@ -49,25 +50,27 @@
 
         <div class="more" onclick="show()">></div>
 
-        <div class="equations">
-            <div class="descreminante">  
-                <div style="text-align: center; border: none;">Discriminant</div>
-                    <input type="text" id="d" placeholder="a = ?  b = ?  c = ?">
-                        <button class="d-equal">=</button>
+        <div class="formulas">
+            <div class="label-select">
+                <label for="formula-select" class="formula-label">Choose a formula:</label>
 
-                    <div class="d-output" style="text-align: center;">
-                        0
-                    </div>
+                <select name="formula-select" id="formula-select">
+                    <option value="disc">discriminant</option>
+                    <option value="qe">quadratic equation</option>
+                </select>
             </div>
-                <div class="parabolas">
-                <div style="text-align: center; border: none;">Parabola</div>
-                    <input type="text" id="p" placeholder="a = ?  b = ?  c = ?">
-                        <button class="p-equal">=</button>
 
-                        <div class="p-output" style="text-align: center;">
-                            0
-                        </div>
+            <div class="formula-inp-out">
+                <div class="inp-eq">
+                    <input type="text" name="formula-inp" id="formula-inp" placeholder="a? b? c?">
+                    <button id="solve" onclick="formulaCalculator.calculate()">=</button>
                 </div>
+                <div class="out-approx">
+                    <div class="approx">≈</div>
+                    <output id="formula-out"></output>
+                </div>
+            </div>
+
         </div>
     </div>
 
