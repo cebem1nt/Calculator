@@ -50,7 +50,7 @@ class Calculator {
       // calculates any operation with two numbers and
       // sets the result as a previous number. used in case of:
       // triple operations : 1 + 2 - n ; will calculaate 1 + 2 firstly
-      // and then will calculate as 3 - n
+      // and then will calculate 3 - n
       const res = this.methods[this.methodCall](this.prevNum, Number(this.inp.value))
       this.setResult(res)
       this.prevNum = res
@@ -293,4 +293,3 @@ function show(){
     showed = true;
   }
 }
-
